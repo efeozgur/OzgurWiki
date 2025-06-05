@@ -1,0 +1,57 @@
+﻿@model OzgurWiki.Models.WikiPage
+@{
+    ViewData["Title"] = "Yeni Sayfa";
+}
+
+<div class="container mt-4">
+    <h2>Yeni Sayfa Oluştur</h2>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Başlık</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Content" class="form-label">İçerik</label>
+            <textarea asp-for="Content" class="form-control" id="markdown-editor" rows="10"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
+@section Scripts {
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+    <script>
+        var easyMDE = new EasyMDE({
+            element: document.getElementById("markdown-editor"),
+            spellChecker: false,
+            placeholder: "Markdown ile içerik yazın...",
+            toolbar: [
+                "bold", "italic", "heading", "|",
+                "unordered-list", "ordered-list", "|",
+                {
+                    name: "wikilink",
+                    action: function customWikiLink(editor) {
+                        let cm = editor.codemirror;
+                        let selection = cm.getSelection();
+                        cm.replaceSelection(`[[${selection || 'YeniSayfa'}]]`);
+                    },
+                    className: "fa fa-link",
+                    title: "Wiki Bağlantısı ([[Başlık]])"
+                },
+                "|", "preview", "side-by-side", "fullscreen"
+            ],
+        });
+
+        // Ctrl+Shift+K kısayolu
+        easyMDE.codemirror.addKeyMap({
+            "Ctrl-Shift-K": function (cm) {
+                let selection = cm.getSelection();
+                cm.replaceSelection(`[[${selection || 'YeniSayfa'}]]`);
+            }
+        });
+    </script>
+}
+

@@ -1,0 +1,83 @@
+﻿@model List<OzgurWiki.Models.WikiPage>
+@{
+    ViewData["Title"] = "OzgurWiki";
+}
+
+<form method="get" class="mb-4 d-flex align-items-center gap-2">
+    <label for="pageSize" class="form-label mb-0">Sayfa başına göster:</label>
+    <select name="pageSize" id="pageSize" class="form-select w-auto" onchange="this.form.submit()">
+        @{
+            var sizes = new int[] { 5, 10, 20, 50 };
+        }
+        @foreach (var size in sizes)
+        {
+            @foreach (var kapasite in sizes)
+            {
+                var selected = (ViewBag.PageSize == size) ? "selected" : "";
+                <option value="@kapasite" selected="@selected">@kapasite</option>
+            }
+
+        }
+    </select>
+    <input type="hidden" name="page" value="1" />
+</form>
+
+
+
+<h2 class="mb-4 fw-semibold">📘 Sayfa Listesi</h2>
+
+@if (Model.Any())
+{
+    <ul class="list-group list-group-flush">
+        @foreach (var sayfa in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center border-bottom">
+                <div>
+                    <a asp-action="Detail" asp-route-id="@sayfa.Id" class="text-decoration-none text-dark fw-semibold">
+                        @sayfa.Title
+                    </a>
+                    <div class="text-muted small">🕒 @sayfa.LastUpdated.ToShortDateString()</div>
+                </div>
+                <a asp-action="Detail" asp-route-id="@sayfa.Id" class="btn btn-sm btn-outline-primary">Görüntüle</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="alert alert-light border text-muted">
+        Henüz içerik yok. Hemen bir <a asp-action="Create">sayfa oluştur</a>.
+    </div>
+}
+
+
+
+@if (ViewBag.TotalPages > 1)
+{
+    <nav class="mt-4" aria-label="Sayfa geçişi">
+        <ul class="pagination justify-content-center">
+
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-page="@(ViewBag.CurrentPage - 1)">« Önceki</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-route-page="@i" asp-route-pageSize="@ViewBag.PageSize"  >@i</a>
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-pageSize="@ViewBag.PageSize">Sonraki »</a>
+                </li>
+            }
+
+        </ul>
+    </nav>
+}

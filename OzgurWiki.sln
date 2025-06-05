@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OzgurWiki", "OzgurWiki\OzgurWiki.csproj", "{8C36773B-385E-4AD8-B81D-6D1474AB9888}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C36773B-385E-4AD8-B81D-6D1474AB9888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C36773B-385E-4AD8-B81D-6D1474AB9888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C36773B-385E-4AD8-B81D-6D1474AB9888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C36773B-385E-4AD8-B81D-6D1474AB9888}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C7FD8B2-F94F-42AF-887A-10461D3F6C87}
+	EndGlobalSection
+EndGlobal
